@@ -34,6 +34,12 @@ def update_order_status(request, pk):
 
         new_status = request.data.get("status")
 
+        if not new_status:
+            return Response(
+                {"error": "Status required"},
+                status=400
+            )
+
         order.status = new_status
         order.save()
 
