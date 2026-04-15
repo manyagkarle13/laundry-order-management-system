@@ -11,6 +11,25 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import sys
+
+# Work around a Django template context copy bug on Python 3.14.
+# Django's BaseContext.__copy__ uses copy(super()), which can return a
+# super object on this interpreter and break admin rendering.
+if sys.version_info >= (3, 14):
+    try:
+        from django.template.context import BaseContext
+
+        def _patched_basecontext_copy(self):
+            duplicate = self.__class__.__new__(self.__class__)
+            if hasattr(self, '__dict__'):
+                duplicate.__dict__.update(self.__dict__)
+            duplicate.dicts = self.dicts[:]
+            return duplicate
+
+        BaseContext.__copy__ = _patched_basecontext_copy
+    except Exception:
+        pass
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +42,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-kto=sj)u#lu@ub&)bvhijunq_$h2wnet9mp=!9q)vpt=v=_sbc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
