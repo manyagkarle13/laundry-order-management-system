@@ -29,29 +29,33 @@ def create_order(request):
 
 @api_view(["PUT"])
 def update_order_status(request, pk):
+
     try:
-        order = Order.objects.get(id=pk)
+
+        order = Order.objects.get(pk=pk)
 
         new_status = request.data.get("status")
 
-        if not new_status:
-            return Response(
-                {"error": "Status required"},
-                status=400
-            )
+        if new_status:
 
-        order.status = new_status
-        order.save()
+            order.status = new_status
+            order.save()
 
-        return Response({
-            "message": "Status updated",
-            "status": order.status
-        })
+            return Response({
+                "message": "Status updated successfully",
+                "status": order.status
+            })
+
+        return Response(
+            {"error": "Status not provided"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     except Order.DoesNotExist:
+
         return Response(
             {"error": "Order not found"},
-            status=404
+            status=status.HTTP_404_NOT_FOUND
         )
 
 @api_view(["GET"])
