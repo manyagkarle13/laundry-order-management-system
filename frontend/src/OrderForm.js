@@ -24,7 +24,7 @@ function OrderForm({ refreshOrders }) {
 
     try {
       await axios.post(
-        "http://127.0.0.1:8000/api/orders/create/",
+         "https://laundry-backend-fi5z.onrender.com/api/orders/create/",
         {
           customer_name: customer,
           phone: phone,
