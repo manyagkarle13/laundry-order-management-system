@@ -1,17 +1,16 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status                  # ← THIS WAS MISSING
 from .models import Order
 from .serializers import OrderSerializer
 from django.db.models import Sum
 
+
 @api_view(["POST"])
 def create_order(request):
-
     data = request.data
-
     quantity = int(data["quantity"])
     price = float(data["price"])
-
     total = quantity * price
 
     order = Order.objects.create(
@@ -24,23 +23,18 @@ def create_order(request):
     )
 
     serializer = OrderSerializer(order)
-
     return Response(serializer.data)
+
 
 @api_view(["PUT"])
 def update_order_status(request, pk):
-
     try:
-
         order = Order.objects.get(pk=pk)
-
         new_status = request.data.get("status")
 
         if new_status:
-
             order.status = new_status
             order.save()
-
             return Response({
                 "message": "Status updated successfully",
                 "status": order.status
@@ -52,44 +46,27 @@ def update_order_status(request, pk):
         )
 
     except Order.DoesNotExist:
-
         return Response(
             {"error": "Order not found"},
             status=status.HTTP_404_NOT_FOUND
         )
 
+
 @api_view(["GET"])
 def list_orders(request):
-
     orders = Order.objects.all()
-
-    serializer = OrderSerializer(
-        orders,
-        many=True
-    )
-
+    serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
+
 
 @api_view(["GET"])
 def dashboard(request):
-
     total_orders = Order.objects.count()
-
-    total_revenue = Order.objects.aggregate(
-        Sum("total")
-    )["total__sum"] or 0
+    total_revenue = Order.objects.aggregate(Sum("total"))["total__sum"] or 0
 
     status_counts = {}
-
-    for status in [
-        "RECEIVED",
-        "PROCESSING",
-        "READY",
-        "DELIVERED"
-    ]:
-        status_counts[status] = Order.objects.filter(
-            status=status
-        ).count()
+    for s in ["RECEIVED", "PROCESSING", "READY", "DELIVERED"]:
+        status_counts[s] = Order.objects.filter(status=s).count()
 
     return Response({
         "total_orders": total_orders,
@@ -97,13 +74,9 @@ def dashboard(request):
         "status_counts": status_counts
     })
 
+
 @api_view(["DELETE"])
 def delete_order(request, id):
-
     order = Order.objects.get(id=id)
-
     order.delete()
-
-    return Response({
-        "message": "Order deleted"
-    })
+    return Response({"message": "Order deleted"})
