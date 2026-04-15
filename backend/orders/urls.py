@@ -5,8 +5,11 @@ urlpatterns = [
 
     path("create/", views.create_order),
 
-    path("status/<uuid:id>/",
-         views.update_status),
+     path(
+     "update/<int:pk>/",
+     views.update_order_status,
+     name="update_order_status",
+     ),
 
     path("list/",
          views.list_orders),

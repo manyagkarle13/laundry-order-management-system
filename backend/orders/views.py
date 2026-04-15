@@ -28,17 +28,25 @@ def create_order(request):
     return Response(serializer.data)
 
 @api_view(["PUT"])
-def update_status(request, id):
+def update_order_status(request, pk):
+    try:
+        order = Order.objects.get(id=pk)
 
-    order = Order.objects.get(id=id)
+        new_status = request.data.get("status")
 
-    order.status = request.data["status"]
+        order.status = new_status
+        order.save()
 
-    order.save()
+        return Response({
+            "message": "Status updated",
+            "status": order.status
+        })
 
-    serializer = OrderSerializer(order)
-
-    return Response(serializer.data)
+    except Order.DoesNotExist:
+        return Response(
+            {"error": "Order not found"},
+            status=404
+        )
 
 @api_view(["GET"])
 def list_orders(request):
