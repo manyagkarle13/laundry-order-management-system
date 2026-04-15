@@ -1,80 +1,366 @@
 # Laundry Order Management System
 
-A full-stack web application for managing laundry orders, tracking order status, and monitoring business operations.
-This system allows users to create and manage laundry orders while administrators can monitor and update order status through an admin dashboard.
+A full-stack web application for managing laundry orders, tracking order status, and monitoring operations.
+The system allows users to create orders, update status, search records, and view dashboard analytics.
+This project demonstrates API development, frontend integration, database usage, and cloud deployment.
 
 ---
 
-## 🌐 Live Demo
+# 🌐 Live Deployment
 
-**Frontend (User Interface):**
+Frontend:
 https://laundry-order-management-system.onrender.com
 
-**Backend API:**
+Backend API:
 https://laundry-backend-fi5z.onrender.com
 
-**Admin Panel:**
+Admin Panel:
 https://laundry-backend-fi5z.onrender.com/admin/
 
 ---
 
-## 📌 Project Overview
+# 🔹 Setup Instructions
 
-The Laundry Order Management System is designed to simplify laundry business operations by enabling:
+## Clone Repository
 
-* Order creation and management
-* Status tracking (Received → Processing → Ready → Delivered)
-* Revenue and order analytics dashboard
-* Admin-based order control
-* Real-time updates between frontend and backend
-
-This project demonstrates full-stack development using modern web technologies and deployment on cloud infrastructure.
+```
+git clone https://github.com/your-username/laundry-order-management-system.git
+cd laundry-order-management-system
+```
 
 ---
 
-## 🛠️ Tech Stack
+## Backend Setup
 
-### Frontend
+```
+cd backend
+
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+python manage.py migrate
+python manage.py runserver
+```
+
+Backend runs at:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## Frontend Setup
+
+```
+cd frontend
+
+npm install
+npm start
+```
+
+Frontend runs at:
+
+```
+http://localhost:3000
+```
+
+---
+
+# 🔹 Features Implemented
+
+## Core Functionality
+
+✔ Create new laundry orders
+✔ Update order status
+✔ Delete orders
+✔ Display order list
+✔ Search orders by customer name or phone
+✔ Filter orders by status
+✔ Dashboard analytics
+✔ Real-time data updates
+✔ Admin panel management
+✔ REST API integration
+✔ Full-stack deployment
+
+---
+
+## Dashboard Features
+
+* Total Orders counter
+* Total Revenue calculation
+* Status breakdown:
+
+```
+RECEIVED
+PROCESSING
+READY
+DELIVERED
+```
+
+---
+
+# 🔹 API Endpoints
+
+```
+GET    /api/orders/list/
+POST   /api/orders/create/
+PUT    /api/orders/update/<id>/
+DELETE /api/orders/delete/<id>/
+GET    /api/orders/dashboard/
+```
+
+---
+
+# 🔹 Database
+
+Database used:
+
+```
+SQLite
+```
+
+Data stored:
+
+* Customer name
+* Phone number
+* Garment type
+* Quantity
+* Total price
+* Order status
+* Created timestamp
+
+---
+
+# 🔹 Data Persistence Note (Important)
+
+This application is deployed using the **Render free tier**, which uses a temporary filesystem.
+
+### What this means
+
+The project uses:
+
+```
+SQLite database
+```
+
+On the free hosting plan:
+
+* The server may sleep after inactivity
+* The service may restart
+* The database file may reset
+
+When this happens:
+
+```
+db.sqlite3
+```
+
+may be recreated, and previously stored data (orders) may disappear.
+
+---
+
+### Example Scenario
+
+1. User creates orders
+2. Server restarts or sleeps
+3. Database resets
+4. Dashboard shows:
+
+```
+Total Orders: 0
+Total Revenue: ₹0
+```
+
+This is expected behavior on free-tier hosting and is not a system bug.
+
+---
+
+### Production Solution
+
+In production, the application would use:
+
+```
+PostgreSQL
+```
+
+This provides:
+
+* Permanent data storage
+* Reliable persistence
+* Production-ready deployment
+
+---
+
+# 🔹 AI Usage Report
+
+## Tools Used
+
+* ChatGPT
+* GitHub Copilot
+
+---
+
+## Where AI Was Used
+
+AI assisted with:
+
+* Debugging Django errors
+* Fixing API routing
+* Connecting frontend to backend
+* Setting up deployment
+* Handling environment variables
+* Writing API integration
+* Resolving status update issues
+* Creating documentation
+
+---
+
+## Sample Prompts Used
+
+```
+Fix Django 500 error on update endpoint
+```
+
+```
+Connect React frontend to deployed backend
+```
+
+```
+Why does my data reset on Render deployment?
+```
+
+```
+How to deploy Django and React on Render?
+```
+
+---
+
+## What AI Got Wrong
+
+* Suggested incorrect API route initially
+* Missed view reference in Django URL configuration
+* Required manual verification of deployment settings
+
+---
+
+## What Was Improved Manually
+
+* Fixed API routing logic
+* Corrected backend endpoint configuration
+* Verified status update persistence
+* Configured deployment settings
+* Debugged production environment
+
+---
+
+# 🔹 Tradeoffs
+
+## What Was Skipped
+
+* Authentication system
+* Payment integration
+* Email notifications
+* Pagination
+* Role-based access control
+
+---
+
+## Why These Were Skipped
+
+Due to:
+
+* Time constraints
+* Focus on core system functionality
+* Prioritizing deployment and API stability
+
+---
+
+## What Would Be Improved With More Time
+
+* User login authentication
+* PostgreSQL database integration
+* Order history tracking
+* Estimated delivery date feature
+* Email notifications
+* Responsive mobile UI
+* Unit testing
+* Docker containerization
+
+---
+
+# 🔹 API Collection / Demo
+
+The system can be demonstrated using:
+
+* Frontend user interface
+* Admin dashboard
+* API endpoints
+* Browser testing
+* Screenshots
+
+---
+
+## Example API Response
+
+```
+[
+  {
+    "id": 1,
+    "customer_name": "Manya",
+    "phone": "1234567890",
+    "garment_type": "Saree",
+    "quantity": 1,
+    "total": 100,
+    "status": "RECEIVED"
+  }
+]
+```
+
+---
+
+# 🔹 Bonus Tasks Completed
+
+✔ Added frontend (React)
+✔ Connected frontend to backend
+✔ Stored data in database
+✔ Implemented search functionality
+✔ Implemented status tracking
+✔ Implemented dashboard analytics
+✔ Deployed backend to Render
+✔ Deployed frontend to Render
+
+---
+
+# 🔹 Tech Stack
+
+Frontend:
 
 * React.js
 * Axios
-* CSS
 * JavaScript
+* CSS
 
-### Backend
+Backend:
 
 * Django
 * Django REST Framework
-* SQLite Database
+* SQLite
 * CORS Headers
-* WhiteNoise (Static file handling)
+* WhiteNoise
 
-### Deployment
+Deployment:
 
-* Render (Cloud Hosting)
-* GitHub (Version Control)
-
----
-
-## 🚀 Features
-
-* Create new laundry orders
-* View list of all orders
-* Update order status dynamically
-* Search and filter orders
-* Dashboard with:
-
-  * Total orders
-  * Total revenue
-  * Status counts
-* Admin panel for order management
-* REST API integration
-* Full deployment (Frontend + Backend)
+* Render
+* GitHub
 
 ---
 
-## 📂 Project Structure
+# 🔹 Project Structure
 
+```
 ```
 laundry-order-management-system/
 │
@@ -105,142 +391,15 @@ laundry-order-management-system/
 │
 └── README.md
 ```
-
 ---
 
-## ⚙️ Installation (Local Setup)
-
-### 1. Clone Repository
-
-```
-git clone https://github.com/your-username/laundry-order-management-system.git
-cd laundry-order-management-system
-```
-
----
-
-### 2. Backend Setup
-
-```
-cd backend
-
-python -m venv venv
-venv\Scripts\activate
-
-pip install -r requirements.txt
-
-python manage.py migrate
-python manage.py runserver
-```
-
-Backend runs at:
-
-```
-http://127.0.0.1:8000
-```
-
----
-
-### 3. Frontend Setup
-
-```
-cd frontend
-
-npm install
-npm start
-```
-
-Frontend runs at:
-
-```
-http://localhost:3000
-```
-
----
-
-## 🔌 API Endpoints
-
-```
-GET    /api/orders/list/
-POST   /api/orders/create/
-GET    /api/orders/dashboard/
-PUT    /api/orders/update/<id>/
-DELETE /api/orders/delete/<id>/
-```
-
----
-
-## 📊 Admin Access
-
-Admin panel allows:
-
-* Viewing all orders
-* Editing order status
-* Managing users
-* Monitoring system data
-
-Access:
-
-```
-https://laundry-backend-fi5z.onrender.com/admin/
-```
-
----
-
-## 🧪 Example Order Workflow
-
-1. User creates an order
-2. Order appears in dashboard
-3. Admin updates status
-4. System updates totals automatically
-
-Status Flow:
-
-```
-RECEIVED
-   ↓
-PROCESSING
-   ↓
-READY
-   ↓
-DELIVERED
-```
-
----
-
-## 📈 Future Enhancements
-
-* User authentication
-* Payment integration
-* Email notifications
-* Order history reports
-* PostgreSQL database
-* Mobile responsiveness
-* Role-based access control
-
----
-
-## 🎯 Learning Outcomes
-
-This project demonstrates:
-
-* Full-stack application development
-* REST API design
-* React frontend integration
-* Django backend development
-* Cloud deployment
-* Debugging and production setup
-* Version control using Git
-
----
-
-## 👩‍💻 Author
+# 🔹 Author
 
 Manya G Karle
 Information Science Engineering Student
 
 ---
 
-## 📄 License
+# 🔹 License
 
 This project is created for educational and demonstration purposes.
