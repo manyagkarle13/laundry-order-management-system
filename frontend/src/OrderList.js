@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE from "./api";
 
 function OrderList() {
 
@@ -13,7 +14,7 @@ function OrderList() {
     try {
 
       const response = await axios.get(
-        "https://laundry-backend-fi5z.onrender.com/api/orders/list/",
+        `${API_BASE}/api/orders/list/`,
       );
 
       setOrders(response.data);
@@ -143,13 +144,10 @@ function OrderList() {
                       onChange={async (e) => {
 
                         await axios.put(
-
-                          `http://127.0.0.1:8000/api/orders/status/${order.id}/`,
-
+                          `${API_BASE}/api/orders/status/${order.id}/`,
                           {
                             status: e.target.value
                           }
-
                         );
 
                         fetchOrders();

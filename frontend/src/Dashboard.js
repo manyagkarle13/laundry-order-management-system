@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE from "./api";
 
 function Dashboard() {
 
@@ -12,7 +13,7 @@ function Dashboard() {
       try {
 
         const response = await axios.get(
-          "https://laundry-backend-fi5z.onrender.com/api/orders/dashboard/",
+          `${API_BASE}/api/orders/dashboard/`,
         );
 
         setData(response.data);

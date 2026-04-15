@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE from "./api";
 
 function OrderForm({ refreshOrders }) {
 
@@ -24,7 +25,7 @@ function OrderForm({ refreshOrders }) {
 
     try {
       await axios.post(
-         "https://laundry-backend-fi5z.onrender.com/api/orders/create/",
+        `${API_BASE}/api/orders/create/`,
         {
           customer_name: customer,
           phone: phone,
