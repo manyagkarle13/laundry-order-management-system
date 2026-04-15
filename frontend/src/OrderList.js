@@ -13,7 +13,7 @@ function OrderList() {
     try {
 
       const response = await axios.get(
-        "https://laundry-backend-fi5z.onrender.com/api/orders/list/"
+        "https://laundry-backend-fi5z.onrender.com/api/orders/list/",
       );
 
       setOrders(response.data);

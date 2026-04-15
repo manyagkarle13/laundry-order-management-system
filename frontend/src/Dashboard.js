@@ -12,7 +12,7 @@ function Dashboard() {
       try {
 
         const response = await axios.get(
-          "https://laundry-backend-fi5z.onrender.com/api/orders/dashboard/"
+          "https://laundry-backend-fi5z.onrender.com/api/orders/dashboard/",
         );
 
         setData(response.data);
