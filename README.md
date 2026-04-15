@@ -361,7 +361,6 @@ Deployment:
 # 🔹 Project Structure
 
 ```
-```
 laundry-order-management-system/
 │
 ├── backend/
@@ -391,7 +390,6 @@ laundry-order-management-system/
 │
 └── README.md
 ```
----
 
 # 🔹 Author
 
